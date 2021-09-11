@@ -69,16 +69,16 @@
             
             $template = "\nimport { NgModule } from '@angular/core';\n";
             $template .= "import { Routes, RouterModule } from '@angular/router';\n";
-            $template .= "import { " .ucfirst(strtolower($moduleName)). "Component } from './" .strtolower($moduleName) . "/" .strtolower($moduleName) . ".component';\n";
-            $template .= "import { " .ucfirst(strtolower($moduleName)). "AddComponent } from './" .strtolower($moduleName) . "/" .strtolower($moduleName) . "-add/" .strtolower($moduleName) . "-add.component';\n";
-            $template .= "import { " .ucfirst(strtolower($moduleName)). "ViewComponent } from './" .strtolower($moduleName) . "/" .strtolower($moduleName) . "-view/" .strtolower($moduleName) . "-view.component';\n\n";
+            $template .= "import { " .ucfirst($moduleName) ."Component } from './" .strtolower($moduleName) . "/" .strtolower($moduleName) . ".component';\n";
+            $template .= "import { " .ucfirst($moduleName) ."AddComponent } from './" .strtolower($moduleName) . "/" .strtolower($moduleName) . "-add/" .strtolower($moduleName) . "-add.component';\n";
+            $template .= "import { " .ucfirst($moduleName) ."ViewComponent } from './" .strtolower($moduleName) . "/" .strtolower($moduleName) . "-view/" .strtolower($moduleName) . "-view.component';\n\n";
             $template .= "const routes: Routes = [\n";
-            $template .= "\t{ path: '" .strtolower($moduleName) . "', component: " .ucfirst(strtolower($moduleName)). "Component },\n";
-            $template .= "\t{ path: '" .strtolower($moduleName) . "/add', component: " .ucfirst(strtolower($moduleName)). "AddComponent },\n";
-            $template .= "\t{ path: '" .strtolower($moduleName) . "/edit/:id', component: " .ucfirst(strtolower($moduleName)). "AddComponent },\n";
-            $template .= "\t{ path: '" .strtolower($moduleName) . "/view/:id', component: " .ucfirst(strtolower($moduleName)). "ViewComponent }\n";
+            $template .= "\t{ path: '" .strtolower($moduleName) . "', component: " .ucfirst($moduleName) ."Component },\n";
+            $template .= "\t{ path: '" .strtolower($moduleName) . "/add', component: " .ucfirst($moduleName) ."AddComponent },\n";
+            $template .= "\t{ path: '" .strtolower($moduleName) . "/edit/:id', component: " .ucfirst($moduleName) ."AddComponent },\n";
+            $template .= "\t{ path: '" .strtolower($moduleName) . "/view/:id', component: " .ucfirst($moduleName) ."ViewComponent }\n";
             $template .= "];\n\n";
-            $template .= "@NgModule({\n\timports: [RouterModule.forChild(routes)],\n\texports: [RouterModule]\n})\n\nexport class " .ucfirst(strtolower($moduleName)) ."RoutingModule { }";
+            $template .= "@NgModule({\n\timports: [RouterModule.forChild(routes)],\n\texports: [RouterModule]\n})\n\nexport class " .ucfirst($moduleName) ."RoutingModule { }";
     
             return htmlentities($template);		
         }        
@@ -139,25 +139,35 @@
                 $angularModelBinding = "";
             }
             
+            $placeholder = "placeholder=\"Enter " .$label ."\"";
+            $label = "\t<label for=\"" .$id ."\">" .$label ."</label>\n";
+
+            if (strtolower($type) == "submit" || strtolower($type) == "button")
+            {
+                $placeholder = "";
+                $label = "";
+            }
+                
+                        
 			if (strtolower($type) == "email")
 				$typeText = " type=\"email\"";
 			else if (strtolower($type) == "password")
 				$typeText = " type=\"password\"";
 			else if (strtolower($type) != "type")
 				$typeText = " type=\"" .$type ."\"";
-		
+
             $template = 
                 "\n<div class=\"form-group\">\n" .
-                    "\t<label for=\"" .$id ."\">" .$label ."</label>\n" .
-                    "\t<input" .$typeText ." id=\"" .$id ."\" name=\"" .$name ."\" class=\"form-control\" placeholder=\"Enter " .$label ."\"" .$angularModelBinding ."/>\n" .
+                   $label .
+                    "\t<input" .$typeText ." id=\"" .$id ."\" name=\"" .$name ."\" class=\"form-control\" " .$placeholder .$angularModelBinding ."/>\n" .
                 "</div>";
             
 			if (strtolower($type) == "textarea")
 			{
                 $template = 
                     "\n<div class=\"form-group\">\n" .
-                    "\t<label for=\"" .$id ."\">" .$label ."</label>\n" .
-                    "\t<textarea id=\"" .$id ."\" name=\"" .$name ."\" class=\"form-control\" placeholder=\"Enter " .$label ."\"" .$angularModelBinding ."></textarea>\n" .
+                    $label .
+                    "\t<textarea id=\"" .$id ."\" name=\"" .$name ."\" class=\"form-control\" " .$placeholder .$angularModelBinding ."></textarea>\n" .
                     "</div>";
 			}
 
@@ -166,7 +176,7 @@
                 $template = 
                     "\n<div class=\"form-group\">\n" .
                     "\t<div class=\"checkbox\">\n" .
-                        "\t\t<label for=\"" .$id ."\">" .$label ."</label>\n" .
+                        "\t" .$label .
                         "\t\t<input type=\"checkbox\" id=\"" .$id ."\" name=\"" .$name ."\" value=\"1\"" .$angularModelBinding ."> " .$label ."\n" .
                     "\t</div>\n" .
                     "</div>";
@@ -184,7 +194,7 @@
 				$template = 
                     "\n<div class=\"form-group\">\n" .
                     "\t<div class=\"radio\">\n" .
-                        "\t\t<label>" .$label ."</label>\n" .$radioOptions .	
+                        "\t" . $label .$radioOptions .	
                     "\t</div>\n" .
                     "</div>";
 			}
@@ -200,7 +210,7 @@
                 
                 $template = 
                     "\n<div class=\"form-group\">\n" .
-                    "\t<label for=\"" .$id ."\">" .$label ."</label>\n" .
+                    $label .
                     "\t<select id=\"" .$id ."\" name=\"" .$id ."\" class=\"form-control\"" .$angularModelBinding .">\n" .$selectOptions .	
                     "\t</select>\n" .
                     "</div>";
@@ -277,7 +287,7 @@
                 
             if (isset($moduleName))
             {
-                $className = ucfirst(strtolower($moduleName));
+                $className = $moduleName;
             }
             
             $template = "\nimport " .$className ." from './" .$className ."';\nimport styles from './styles';\n\nexport {\n\t" .$className .",\n\tstyles\n};";
@@ -296,11 +306,11 @@
                 
             if (isset($moduleName))
             {
-                $className = ucfirst(strtolower($moduleName));
+                $className = $moduleName;
             }
 
             $template = "\nimport React, { Component } from 'react';\n";
-            $template .= "import { CheckBox, Picker, ScrollView, Text, TextInput, View } from 'react-native';\n";
+            $template .= "import { CheckBox, Picker, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';\n";
 
             foreach ($formValues as $values)
             {
@@ -310,7 +320,7 @@
                 {
                     $template .= "import { RadioButtons } from 'react-native-radio-buttons';\n";
                     break;
-                }                
+                }
             }
             
             $template .= "import styles from './styles';\n\n";
@@ -318,11 +328,14 @@
             $template .= "class " .$className ." extends Component {\n\tconstructor(props)\n\t{\n\t\tsuper(props);\n\n\t\tthis.state = {};\n\t}\n\n";
             $template .= "\tonInputChange = (text, stateKey) => {\n\t\tconst mod = {};\n\t\tmod[stateKey] = text;\n\t\tthis.setState(mod);\n\t}\n\n";
 
+            $radioBoilerPlateIncluded = false;
+
             foreach ($formValues as $values)
             {
+                $id = trim($values[0]);
                 $type = trim($values[3]);
 
-                if (strtolower($type) == "radio")
+                if (strtolower($type) == "radio" && $radioBoilerPlateIncluded == false)
                 {
                     $template .= "\tsetSelectedOption = (selectedOption) => {\n";
                     $template .= "\t\tthis.setState({\n";
@@ -343,8 +356,15 @@
                     $template .= "\trenderContainer = (optionNodes) => {\n";
                     $template .= "\t\treturn <View>{optionNodes}</View>;\n";
                     $template .= "\t}\n\n";
-                    break;
-                }                
+
+                    $radioBoilerPlateIncluded = true;
+                }
+
+                if (strtolower($type) == "submit" || strtolower($type) == "button")
+                {
+                    $template .= "\ton" .ucfirst($id) ." = () => {\n\n";
+                    $template .= "\t}\n\n";                    
+                }
             }            
 
             $template .= "\trender() {\n";
@@ -455,7 +475,18 @@
 
                     $field .= "\t\t\t\t\t\t</Picker>\n";
                     $field .= "\t\t\t\t\t</View>";  
-                }               
+                }
+
+                if (strtolower($type) == "submit" || strtolower($type) == "button")
+                {
+                    $field = "\n\t\t\t\t\t<View>\n";
+                    $field .= "\t\t\t\t\t\t<TouchableOpacity\n";
+                    $field .= "\t\t\t\t\t\t\tonPress={this.on" .ucfirst($id) ."()}\n";
+                    $field .= "\t\t\t\t\t\t>\n";
+                    $field .= "\t\t\t\t\t\t\t<Text>" .$label ."</Text>\n";
+                    $field .= "\t\t\t\t\t\t</TouchableOpacity\n";                    
+                    $field .= "\t\t\t\t\t</View>";                    
+                }
                 
                 $template .= $field;
             }
