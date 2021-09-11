@@ -122,7 +122,13 @@
 								<dt>Textarea</dt>
 								<dd>Comments, Comments, comments, textarea</dd>
 							</dl>
-						</li>									
+						</li>
+						<li>					
+							<dl>					
+								<dt>Button</dt>
+								<dd>Submit, Submit, submit, submit</dd>
+							</dl>
+						</li>															
 					</ol>
 				</div>				
 			</div>
