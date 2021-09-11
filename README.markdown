@@ -39,6 +39,7 @@ years, Years to Grow, years, number
 interestRate, Interest Rate, interestRate, text
 compoundInterest, Compound Interest, compoundInterest, text
 additions, Make Additions, start|end, radio
+submit, Submit, submit, submit
 ```
 
 ###### Bootstrap Output
@@ -71,6 +72,9 @@ additions, Make Additions, start|end, radio
 			<input type="radio" name="additions" value="end"> end
 		</div>
 	</div>
+	<div class="form-group">
+		<input type="submit" id="submit" name="Submit" class="form-control" />
+	</div>	
 </form>	
 ```
 
