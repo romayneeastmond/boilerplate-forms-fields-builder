@@ -48,6 +48,9 @@ Temporary Items
 #phpStorm
 .idea
 
+# Visual Studio
+.vs
+
 #private
 GeneratorBennettJonesModel.class.php
 bennett-jones.php
