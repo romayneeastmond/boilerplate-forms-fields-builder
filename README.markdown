@@ -85,3 +85,5 @@ All terms used are copyright to their original authors.
 ## Live Demo
 
 Live demo hosted in Microsoft Azure, PHP 7.4 App Service [Boilerplate Forms Fields Builder](https://dev-php-boilerplate-forms.azurewebsites.net/).
+
+Azure F1 instances are :snowflake: ice cold. That first load will need some :sun_with_face: warming up.
